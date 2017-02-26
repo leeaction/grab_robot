@@ -12,12 +12,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by limeng6 on 2017/2/3.
  */
-public abstract class ZhihuBaseUrlParser implements UrlParser{
+public abstract class Bak_ZhihuBaseUrlParser implements UrlParser{
 
     protected GrabInfo parseAnswer(WebDriver driver, String url){
 
@@ -32,57 +31,54 @@ public abstract class ZhihuBaseUrlParser implements UrlParser{
             Element body = document.body();
 
             //title
-            Elements titleElements = body.getElementsByClass("QuestionHeader-title");
+            Elements titleElements = body.getElementsByClass("zm-item-title");
             int titleSize = titleElements.size();
             if(titleSize > 0 ){
-                String title = titleElements.text();
+                String title = titleElements.get(0).child(0).text();
                 grabInfo.setTitle(title);
             }
 
             //tags
-            Elements elements = body.getElementsByClass("QuestionHeader-topics");
+            Elements elements = body.getElementsByClass("zm-tag-editor-labels zg-clear");
             int size = elements.size();
             if(size > 0 ){
                 Element element = elements.get(0);
-                Elements tagElements = element.getElementsByClass("Tag-content");
+                Elements tagElements = element.getElementsByClass("zm-item-tag");
                 for(int i = 0;i<tagElements.size();i++){
                     Element tagElement = tagElements.get(i);
-                    Element tagContent = tagElement.child(0).child(0).child(0);
-                    String data = tagContent.text();
+                    String data = tagElement.text();
                     tags.add(data);
                 }
                 grabInfo.putTags(tags);
             }
 
             //赞数
-            Elements likeElements = body.getElementsByClass("AnswerItem-extraInfo");
+            /*Elements likeElements = body.getElementsByClass("zm-votebar goog-scrollfloater");
             int likeSize = likeElements.size();
             if(likeSize > 0 ){
                 Element element = likeElements.get(0);
-                Elements likeCountElements = element.getElementsByClass("Button Button--plain");
+                Elements likeCountElements = element.getElementsByClass("count");
                 int likeCountSize = likeCountElements.size();
                 if(likeCountSize > 0){
                     Element firstLikeCountElement = likeCountElements.get(0);
                     String likeCount = firstLikeCountElement.text();
                     grabInfo.setLikeCount(likeCount);
                 }
-            }
+            }*/
 
             //编辑时间
-            Elements modifiedTimeElements = body.getElementsByClass("answer-date-link meta-item");
+            /*Elements modifiedTimeElements = body.getElementsByClass("answer-date-link meta-item");
             int modifiedTimeSize = modifiedTimeElements.size();
             if(modifiedTimeSize > 0 ){
                 Element element = modifiedTimeElements.get(0);
                 String modifiedTimeCount = element.text();
                 grabInfo.setModifiedTime(modifiedTimeCount);
-            }
+            }*/
 
             //回答数量
-            Elements answerNumElements = body.getElementsByClass("List-headerText");
-            int answerNumSize = answerNumElements.size();
-            if(answerNumSize > 0 ){
-                Element element = answerNumElements.get(0);
-                String answerNUm = element.child(0).text();
+            Element answerNumelement = body.getElementById("List-headerText");
+            if(answerNumelement != null){
+                String answerNUm = answerNumelement.text();
                 grabInfo.setAnswerCount(answerNUm);
             }
 
@@ -113,7 +109,7 @@ public abstract class ZhihuBaseUrlParser implements UrlParser{
             }
 
             //最远一次回答
-            Elements pagerElements = answererBody.getElementsByClass("Pagination");
+            Elements pagerElements = answererBody.getElementsByClass("zm-invite-pager");
             int pagerElementsCount = pagerElements.size();
             if(pagerElementsCount > 0){
                 Element pagerElement = pagerElements.get(0);

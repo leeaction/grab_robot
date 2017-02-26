@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grabs>
+
+    <grab
+            name="知乎情报学精选"
+            parser="ZhihuGrabber"
+            persistence_type="ZhihuPersistence"
+            persistence_name="zhihu_top.csv"
+            username="leeaction@163.com"
+            password="lmlh8888">
+        <urls>
+            <url parser="ZhihuPageParser">https://www.zhihu.com/topic/19626490/top-answers</url>
+        </urls>
+    </grab>
     <grab
             name="知乎情报学动态"
             parser="ZhihuGrabber"
@@ -10,17 +22,6 @@
         <urls>
             <!-- 抓取这个链接要保持浏览器保持打开状态,不可以最小化 -->
             <url parser="ZhihuFeedParser">https://www.zhihu.com/topic/19626490/hot</url>
-        </urls>
-    </grab>
-    <grab
-            name="知乎情报学精选"
-            parser="ZhihuGrabber"
-            persistence_type="ZhihuPersistence"
-            persistence_name="zhihu_top.csv"
-            username="XXXX"
-            password="XXX">
-        <urls>
-            <url parser="ZhihuPageParser">https://www.zhihu.com/topic/19626490/top-answers</url>
         </urls>
     </grab>
     <grab

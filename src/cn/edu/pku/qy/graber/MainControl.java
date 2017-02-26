@@ -4,6 +4,8 @@ import cn.edu.pku.qy.graber.config.CommonConfigManager;
 import cn.edu.pku.qy.graber.core.ConsoleManager;
 import cn.edu.pku.qy.graber.core.GraberManager;
 
+import java.lang.reflect.Proxy;
+
 /**
  * Created by limeng6 on 2017/2/1.
  */

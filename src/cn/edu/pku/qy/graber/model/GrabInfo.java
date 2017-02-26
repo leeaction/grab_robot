@@ -20,6 +20,10 @@ public class GrabInfo {
 
     private String askTime;
 
+    private String likeCount;
+
+    private String modifiedTime;
+
     public String getTitle() {
         return title;
     }
@@ -72,11 +76,28 @@ public class GrabInfo {
         this.askTime = askTime;
     }
 
+    public String getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(String likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public String getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(String modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
     @Override
     public String toString() {
         /*return "title:"+title+" answerCount:"+answerCount+" latestAnswererTime:"+latestAnswererTime+" farthestAnswererTime:"+farthestAnswererTime+
                 " askTime:"+askTime+" tags:"+tags.toString();*/
-        return title + ","+answerCount + "," + latestAnswererTime + "," + farthestAnswererTime + "," + askTime + " ,"+tagsLine(tags);
+        return title + ","+answerCount + "," + latestAnswererTime + "," + farthestAnswererTime + "," + askTime + " ,"+tagsLine(tags) + " ,"
+                +likeCount +" ,"+ modifiedTime;
     }
 
     private String tagsLine(List<String> tags){

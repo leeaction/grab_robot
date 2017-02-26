@@ -49,7 +49,7 @@ public class ZhihuPageParser extends ZhihuBaseUrlParser {
 
                 ConsoleManager.getInstance().msg("抓取第" + pageIndex +"页... 共" + pageNum + "页");
 
-                Elements elements = body.getElementsByClass("question_link");
+                Elements elements = body.getElementsByClass("feed-item feed-item-hook folding");
 
                 List<GrabInfo> grabInfos = parseQuestionLink(driver, elements);
 
@@ -72,10 +72,27 @@ public class ZhihuPageParser extends ZhihuBaseUrlParser {
         List<GrabInfo> grabInfos = new ArrayList<>();
         for (int i = 0; i < currentElements.size(); i++) {
             Element element = currentElements.get(i);
-            String url = element.absUrl("href");
+            Element linkElement = parseQuestionLink(element);
+            String url = linkElement.absUrl("href");
             GrabInfo info = parseAnswer(driver, url);
+            parseExtInfo(element,info);
             grabInfos.add(info);
         }
         return grabInfos;
+    }
+
+    private Element parseQuestionLink(Element element){
+        Elements linkElements = element.getElementsByClass("question_link");
+        return linkElements.get(0);
+    }
+
+    private void parseExtInfo(Element element,GrabInfo info){
+        Elements likeElements = element.getElementsByClass("zm-item-vote-count js-expand js-vote-count");
+        String likeCount = likeElements.get(0).text();
+        info.setLikeCount(likeCount);
+
+        Elements modifiedElements = element.getElementsByClass("answer-date-link meta-item");
+        String modifiedCount = modifiedElements.get(0).text();
+        info.setModifiedTime(modifiedCount);
     }
 }

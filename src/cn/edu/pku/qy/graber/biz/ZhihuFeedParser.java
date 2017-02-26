@@ -90,6 +90,7 @@ public class ZhihuFeedParser extends ZhihuBaseUrlParser {
         for (WebElement element : currentElements) {
             String url = element.getAttribute("href");
             GrabInfo info = parseAnswer(driver,url);
+            System.out.println("info:"+info.toString());
             grabInfos.add(info);
         }
         return grabInfos;
